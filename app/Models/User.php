@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function typeLetters()
+    {
+        return $this->hasMany(TypeLetter::class);
+    }
 }

@@ -14,12 +14,12 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Kelola Surat',
-        href: '/settings/password',
+        href: '',
         icon: null,
     },
     {
         title: 'Jenis Surat',
-        href: '/settings/appearance',
+        href: '/surat/jenis-surat',
         icon: null,
     },
 ];

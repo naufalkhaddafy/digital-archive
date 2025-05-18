@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LetterController;
+use App\Http\Controllers\TypeLetterController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,9 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::prefix('surat')->group(function () {
-        Route::get('/daftar-surat', function () {
-            return Inertia::render('Surat/Index');
-        })->name('daftar-surat');
+        Route::get('/daftar-surat', [LetterController::class, 'index'])->name('daftar-surat');
+        Route::resource('jenis-surat', TypeLetterController::class);
     });
 });
 

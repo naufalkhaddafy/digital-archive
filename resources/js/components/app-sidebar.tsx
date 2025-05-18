@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, FolderCog, LayoutGrid, Mails } from 'lucide-react';
+import { BookOpen, FileStack, Folder, FolderCog, LayoutGrid, Mails } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -13,11 +13,22 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+];
+
+const suratMenu: NavItem[] = [
     {
-        title: 'Surat',
+        title: 'Daftar Surat',
         href: '/surat/daftar-surat',
         icon: Mails,
     },
+    {
+        title: 'Jenis Surat',
+        href: '/surat/jenis-surat',
+        icon: FileStack,
+    },
+];
+
+const fileMenu: NavItem[] = [
     {
         title: 'Arsip Dokumen',
         href: '/',
@@ -54,7 +65,9 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} title="Platform" />
+                <NavMain items={suratMenu} title="Kelola Surat" />
+                <NavMain items={fileMenu} title="File Manager" />
             </SidebarContent>
 
             <SidebarFooter>
