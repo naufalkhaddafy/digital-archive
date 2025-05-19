@@ -11,11 +11,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/react';
-import { FolderClosed, FolderPlus, Plus, Search } from 'lucide-react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { FileInput, FileOutput, FolderClosed, Plus, Search } from 'lucide-react';
 import { useEffect } from 'react';
 import { columns } from './Partials/ListColumns';
-import { ModalFormTypeLetter } from './Partials/Modal';
 import { LetterParams, TypeLetterParams } from './Type';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -25,52 +24,52 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const surat: LetterParams[] = [
-    {
-        id: 1,
-        name: 'Surat Pemberitahuan',
-        code: 'SPB',
-        type: 'Masuk',
-        file: 'https://picsum.photos/200',
-    },
-    {
-        id: 2,
-        name: 'Surat Peringatan',
-        code: 'SPR',
-        type: 'Keluar',
-        file: 'https://picsum.photos/200',
-    },
-    {
-        id: 3,
-        name: 'Surat Pengumuman',
-        code: 'SPG',
-        type: 'Masuk',
-        file: 'https://picsum.photos/200',
-    },
-    {
-        id: 4,
-        name: 'Surat Pemberitahuan',
-        code: 'SPB',
-        type: 'Keluar',
-        file: 'https://picsum.photos/200',
-    },
-    {
-        id: 5,
-        name: 'Surat Peringatan',
-        code: 'SPR',
-        type: 'Masuk',
-        file: 'https://picsum.photos/200',
-    },
-    {
-        id: 6,
-        name: 'Surat Pengumuman',
-        code: 'SPG',
-        type: 'Keluar',
-        file: 'https://picsum.photos/200',
-    },
-];
+// const surat: LetterParams[] = [
+//     {
+//         id: 1,
+//         name: 'Surat Pemberitahuan',
+//         code: 'SPB',
+//         type: 'Masuk',
+//         file: 'https://picsum.photos/200',
+//     },
+//     {
+//         id: 2,
+//         name: 'Surat Peringatan',
+//         code: 'SPR',
+//         type: 'Keluar',
+//         file: 'https://picsum.photos/200',
+//     },
+//     {
+//         id: 3,
+//         name: 'Surat Pengumuman',
+//         code: 'SPG',
+//         type: 'Masuk',
+//         file: 'https://picsum.photos/200',
+//     },
+//     {
+//         id: 4,
+//         name: 'Surat Pemberitahuan',
+//         code: 'SPB',
+//         type: 'Keluar',
+//         file: 'https://picsum.photos/200',
+//     },
+//     {
+//         id: 5,
+//         name: 'Surat Peringatan',
+//         code: 'SPR',
+//         type: 'Masuk',
+//         file: 'https://picsum.photos/200',
+//     },
+//     {
+//         id: 6,
+//         name: 'Surat Pengumuman',
+//         code: 'SPG',
+//         type: 'Keluar',
+//         file: 'https://picsum.photos/200',
+//     },
+// ];
 
-const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
+const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; letters: LetterParams[] }) => {
     const { data, setData, errors, get, patch, processing, reset } = useForm({
         keyword: '',
     });
@@ -91,6 +90,7 @@ const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
             <Head title="Kelola Surat" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title="Kelola Surat" description="Kelola surat" />
+
                 <div className="flex items-center gap-2">
                     <div className="relative max-w-md flex-1">
                         <input
@@ -104,7 +104,7 @@ const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="flex-0">
+                            <Button variant="outline" className="flex-0 cursor-pointer">
                                 <Plus className="size-5" />
                                 <span className="sr-only">Tambah Surat</span>
                             </Button>
@@ -115,23 +115,24 @@ const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
                             </DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                                <div className="flex items-center text-sm">
-                                    <Plus className="size-5" />
-                                    <p className="block w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Tambah Surat Baru
-                                    </p>
-                                </div>
+                                <Link href="/surat/tambah-surat-keluar">
+                                    <div className="flex items-center text-xs">
+                                        <FileOutput className="size-5 text-red-500" />
+                                        <span className="w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Tambah Surat Keluar
+                                        </span>
+                                    </div>
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem>
-                                <div className="flex items-center text-xs">
-                                    <FolderPlus className="size-5" />
-                                    <span className="w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Tambah Jenis Surat
-                                    </span>
-                                </div>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                                <ModalFormTypeLetter />
+                                <Link href="/surat/tambah-surat-masuk">
+                                    <div className="flex items-center text-sm">
+                                        <FileInput className="size-5 text-green-500" />
+                                        <p className="block w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Tambah Surat Masuk
+                                        </p>
+                                    </div>
+                                </Link>
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -164,9 +165,7 @@ const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
                                         <FolderClosed className="size-12 text-gray-500" />
                                         <div>
                                             <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
-                                            <div className="text-sm text-gray-700 dark:text-gray-400">
-                                                {surat.filter((s) => s.type === 'Masuk').length} Surat
-                                            </div>
+                                            <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
                                         </div>
                                     </div>
                                 </div>
@@ -180,7 +179,7 @@ const Index = ({ typeLetters }: { typeLetters: TypeLetterParams[] }) => {
                 </div>
                 <h3 className="p-3 font-bold">Surat terbaru</h3>
                 <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
-                    <DataTable columns={columns} data={surat} />
+                    <DataTable columns={columns} data={letters} />
                 </div>
             </div>
         </AppLayout>

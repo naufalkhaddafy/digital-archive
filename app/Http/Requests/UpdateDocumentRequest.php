@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TypeLetterRequest extends FormRequest
+class UpdateDocumentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,16 +22,7 @@ class TypeLetterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:255', 'unique:type_letters,name'],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.max' => 'Nama tidak boleh lebih dari 255 karakter',
-            'name.unique' => 'Nama sudah ada',
+            //
         ];
     }
 }

@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { useForm } from '@inertiajs/react';
 import { CirclePlus, LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
-import { TypeLetterParams } from '../Type';
+import { LetterParams, TypeLetterParams } from '../Type';
 
 export const ModalFormTypeLetter = ({ type }: { type?: TypeLetterParams }) => {
     const [open, setOpen] = useState<boolean>(false);
@@ -107,6 +107,43 @@ export const ModalDeleteTypeLetter = ({ type }: { type: TypeLetterParams }) => {
                     </DialogClose>
                     <Button disabled={processing} variant="destructive" asChild>
                         <button onClick={() => deletePost(type)} disabled={processing}>
+                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                            Delete
+                        </button>
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    );
+};
+
+export const ModalDeleteLetter = ({ letter }: { letter: LetterParams }) => {
+    const { delete: destroy, processing } = useForm({
+        id: letter.id || '',
+    });
+    const [open, setOpen] = useState<boolean>(false);
+
+    const deletePost = (type: LetterParams) => {
+        destroy(route('dokumen.destroy', type.id), {
+            preserveScroll: true,
+            onSuccess: () => setOpen(false),
+        });
+    };
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <button className="hover:bg-secondary w-full rounded-sm px-2 py-1 text-start text-sm text-red-500">Hapus</button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogTitle>Hapus Surat</DialogTitle>
+                <DialogDescription>Apakah anda ingin menghapus Surat {letter.name}</DialogDescription>
+                <DialogFooter className="gap-2">
+                    <DialogClose asChild>
+                        <Button variant="secondary">Cancel</Button>
+                    </DialogClose>
+                    <Button disabled={processing} variant="destructive" asChild>
+                        <button onClick={() => deletePost(letter)} disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Delete
                         </button>
