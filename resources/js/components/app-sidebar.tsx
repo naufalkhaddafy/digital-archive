@@ -31,7 +31,7 @@ const suratMenu: NavItem[] = [
 const fileMenu: NavItem[] = [
     {
         title: 'Arsip Dokumen',
-        href: '/',
+        href: '/dokumen',
         icon: FolderCog,
     },
 ];

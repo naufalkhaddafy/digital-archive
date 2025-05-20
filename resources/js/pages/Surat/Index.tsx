@@ -185,7 +185,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                                                 <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
                                                 <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
                                             </div>
-                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </Link>

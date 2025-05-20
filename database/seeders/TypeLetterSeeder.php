@@ -15,7 +15,7 @@ class TypeLetterSeeder extends Seeder
         $data = [
             [
                 'user_id' => 1,
-                'name' => 'Surat Pengantar',
+                'name' => 'Surat Keputusan',
                 'is_private' => false,
             ],
             [

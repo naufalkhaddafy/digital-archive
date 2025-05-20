@@ -148,7 +148,7 @@ class LetterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document $letter)
+    public function update(LetterRequest $request, Document $letter)
     {
         if ($request->file('file') && Storage::disk('public')->exists($letter->file)) {
             Storage::disk('public')->delete($letter->file);
@@ -174,8 +174,15 @@ class LetterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Document $letter)
     {
-        //
+        if (!empty($letter->file) && Storage::disk('public')->exists($letter->file)) {
+            Storage::disk('public')->delete($letter->file);
+        }
+
+        $letter->delete();
+
+        flashMessage('Success', 'Berhasil menghapus Dokumen');
+        return redirect()->route('daftar-surat');
     }
 }

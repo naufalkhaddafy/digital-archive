@@ -24,9 +24,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/store', [LetterController::class, 'store'])->name('surat.store');
         Route::patch('/{letter}/update', [LetterController::class, 'update'])->name('surat.update');
         Route::get('/{type:slug}', [LetterController::class, 'show'])->name('surat.show');
+        Route::delete('/{letter}/destroy', [LetterController::class, 'destroy'])->name('surat.destroy');
     });
 
-    Route::resource('/dokumen', DocumentController::class)->except(['show', 'edit', 'create'])->parameters([
+    Route::resource('/dokumen', DocumentController::class)->except(['show'])->parameters([
         'dokumen' => 'document'
     ]);
 });

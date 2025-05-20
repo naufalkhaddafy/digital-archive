@@ -18,7 +18,7 @@ const Detail = ({ letters, typeLetter }: { letters: LetterParams[]; typeLetter: 
             href: '/',
         },
     ];
-    console.log(typeLetter);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Detail Jenis Surat" />

@@ -124,7 +124,7 @@ export const ModalDeleteLetter = ({ letter }: { letter: LetterParams }) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const deletePost = (type: LetterParams) => {
-        destroy(route('dokumen.destroy', type.id), {
+        destroy(route('surat.destroy', type.id), {
             preserveScroll: true,
             onSuccess: () => setOpen(false),
         });

@@ -3,15 +3,14 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { File, FileInput, FileOutput, LoaderCircle, Lock, X } from 'lucide-react';
+import { File, FilePlus, LoaderCircle, Lock, X } from 'lucide-react';
 import { useState } from 'react';
-import { LetterParams } from './Type';
+import { LetterParams } from '../Surat/Type';
 
 type PageSettings = {
     title: string;
@@ -21,17 +20,15 @@ type PageSettings = {
     type: string;
 };
 
-type TypeLetter = { id: number; name: string; is_private: boolean };
-
-const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSettings; type_letters: TypeLetter[]; letter?: LetterParams }) => {
+const Form = ({ page_settings, document }: { page_settings: PageSettings; document?: LetterParams }) => {
     const { errors } = usePage().props;
 
     const [processing, setProcessing] = useState(false);
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
-            title: 'Daftar Surat',
-            href: '/surat/daftar-surat',
+            title: 'Arsip Dokumen',
+            href: '/dokumen',
         },
         {
             title: `Form ${page_settings.title}`,
@@ -40,14 +37,12 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
     ];
 
     const { setData, data, reset } = useForm({
-        type_letter_id: letter?.type_letter_id || '',
-        name: letter?.name || '',
-        code: letter?.code || '',
-        description: letter?.description || '',
-        file: letter?.file || null,
-        is_private: letter?.is_private || false,
-        accepted_at: letter?.accepted_at || '',
-        status: page_settings.type == 'in' ? 'masuk' : 'keluar',
+        name: document?.name || '',
+        code: document?.code || '',
+        description: document?.description || '',
+        file: document?.file || null,
+        is_private: document?.is_private || false,
+        accepted_at: document?.accepted_at || '',
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -74,9 +69,8 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
         }
     };
 
-    const [isFile, setIsFile] = useState<boolean>(letter?.file ? true : false);
+    const [isFile, setIsFile] = useState<boolean>(document?.file ? true : false);
 
-    console.log(letter);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Form Surat" />
@@ -86,56 +80,32 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
                     <div className="w-full rounded-xl border p-4 shadow xl:col-span-4">
                         <div className="flex items-center justify-between border-gray-200 p-2 py-4">
                             <div className="flex items-center space-x-2">
-                                {page_settings.type == 'in' ? (
-                                    <FileInput className="size-5 text-green-500" />
-                                ) : (
-                                    <FileOutput className="size-5 text-red-500" />
-                                )}
+                                <FilePlus className="size-5 text-green-500" />
                                 <h2 className="text-lg font-semibold">Form {page_settings.title}</h2>
                             </div>
                         </div>
                         <form className="p-2" onSubmit={handleSubmit}>
                             <div className="grid w-full gap-3">
-                                <div className="w-full">
-                                    <Label htmlFor="description">Jenis Surat</Label>
-                                    <Select
-                                        name="type_letter_id"
-                                        onValueChange={(e) => setData('type_letter_id', e)}
-                                        value={`${data.type_letter_id}`}
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Pilih Jenis Surat" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {type_letters.map((type_letter) => (
-                                                <SelectItem key={type_letter.id} value={`${type_letter.id}`}>
-                                                    {type_letter.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                    <InputError className="mt-2" message={errors.type_letter_id} />
-                                </div>
                                 <div className="flex w-full flex-col-reverse gap-4 lg:flex-row">
                                     <div className="w-full">
-                                        <Label htmlFor="name">Nama Surat</Label>
+                                        <Label htmlFor="name">Nama Dokumen</Label>
                                         <Input
                                             id="name"
                                             type="text"
                                             className="w-full"
-                                            placeholder="Masukan nama surat ..."
+                                            placeholder="Masukan nama dokumen ..."
                                             value={data.name}
                                             onChange={(e) => setData('name', e.target.value)}
                                         />
                                         <InputError className="mt-2" message={errors.name} />
                                     </div>
                                     <div className="w-full">
-                                        <Label htmlFor="code">Nomor Surat</Label>
+                                        <Label htmlFor="code">Nomor Dokumen</Label>
                                         <Input
                                             id="code"
                                             type="text"
                                             className="w-full"
-                                            placeholder="No. Surat"
+                                            placeholder="No. dokumen"
                                             value={data.code}
                                             onChange={(e) => setData('code', e.target.value)}
                                         />
@@ -176,7 +146,7 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
                                         <InputError className="mt-2" message={errors.file} />
                                     </div>
                                     <div className="col-span-2 w-full">
-                                        <Label htmlFor="is_private">Kunci Surat</Label>
+                                        <Label htmlFor="is_private">Kunci Dokumen</Label>
                                         <div className="flex items-center gap-2 py-2">
                                             <Switch
                                                 id="is_private"
@@ -187,19 +157,6 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
                                         </div>
                                         <InputError className="mt-2" message={errors.is_private} />
                                     </div>
-                                </div>
-
-                                <div className="w-full">
-                                    <Label htmlFor="accepted_at">Tanggal {page_settings.type == 'in' ? 'Diterima' : 'Dikeluarkan'}</Label>
-                                    <Input
-                                        id="accepted_at"
-                                        type="date"
-                                        className="w-full"
-                                        placeholder="Tanggal diterima"
-                                        value={data.accepted_at}
-                                        onChange={(e) => setData('accepted_at', e.target.value)}
-                                    />
-                                    <InputError className="mt-2" message={errors.accepted_at} />
                                 </div>
                                 <div className="w-full">
                                     <Label htmlFor="description">Deskripsi (optional)</Label>

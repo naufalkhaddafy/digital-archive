@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class StoreDocumentRequest extends FormRequest
 {
@@ -21,13 +23,14 @@ class StoreDocumentRequest extends FormRequest
      */
     public function rules(): array
     {
+        $file = asset(Storage::url($this->route('document')?->file)) === $this->file ? ['required'] : ['required', 'max:2048', 'mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,csv'];
+
         return [
-            'type_letter_id' => 'nullable',
             'folder_id' => 'nullable',
             'name' => 'required',
-            'code' => 'nullable|unique:documents,code',
+            'code' => ['nullable', 'string', $this->route('document') ? Rule::unique('documents', 'code')->ignore($this->route('document')->id) : 'unique:documents,code'],
             'description' => 'nullable',
-            'file' => 'required|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,csv|max:2048',
+            'file' => $file,
             'status' => 'nullable',
             'accepted_at' => 'nullable|date',
             'is_private' => 'nullable|boolean',
