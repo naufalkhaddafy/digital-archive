@@ -54,11 +54,14 @@ export default function Password() {
 
             <SettingsLayout>
                 <div className="space-y-6">
-                    <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+                    <HeadingSmall
+                        title="Ubah kata sandi"
+                        description="Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk tetap aman"
+                    />
 
                     <form onSubmit={updatePassword} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="current_password">Current password</Label>
+                            <Label htmlFor="current_password">Password Sekarang</Label>
 
                             <Input
                                 id="current_password"
@@ -75,7 +78,7 @@ export default function Password() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">New password</Label>
+                            <Label htmlFor="password">Password Baru</Label>
 
                             <Input
                                 id="password"
@@ -92,7 +95,7 @@ export default function Password() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">Confirm password</Label>
+                            <Label htmlFor="password_confirmation">Konfirmasi Password Baru</Label>
 
                             <Input
                                 id="password_confirmation"
