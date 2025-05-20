@@ -121,7 +121,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="flex-0 cursor-pointer">
+                            <Button variant="outline" className="flex-0 cursor-pointer bg-green-700 text-white">
                                 <Plus className="size-5" />
                                 <span className="sr-only">Tambah Surat</span>
                             </Button>
@@ -185,7 +185,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                                                 <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
                                                 <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
                                             </div>
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Link>
