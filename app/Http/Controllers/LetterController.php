@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LetterRequest;
+use App\Http\Resources\LetterResource;
 use App\Http\Resources\LettersResource;
 use App\Http\Resources\TypeLetterResource;
 use App\Models\Document;
 use App\Models\TypeLetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Mockery\Matcher\Type;
 use PhpParser\Comment\Doc;
@@ -46,7 +49,7 @@ class LetterController extends Controller
             'page_settings' => [
                 'title' => 'Tambah Surat Masuk',
                 'description' => 'Menambahkan Surat Masuk',
-                'url' => route('dokumen.store'),
+                'url' => route('surat.store'),
                 'method' => 'POST',
                 'type' => 'in',
             ],
@@ -62,7 +65,7 @@ class LetterController extends Controller
             'page_settings' => [
                 'title' => 'Tambah Surat Keluar',
                 'description' => 'Menambahkan Surat Keluar',
-                'url' => route('dokumen.store'),
+                'url' => route('surat.store'),
                 'method' => 'POST',
                 'type' => 'out',
             ],
@@ -70,30 +73,30 @@ class LetterController extends Controller
         ]);
     }
 
-    public function letterInEdit()
+    public function letterInEdit(Document $letter)
     {
         return inertia('Surat/Form', [
-            'posts' => new Document(),
+            'letter' => LetterResource::make($letter),
             'page_settings' => [
                 'title' => 'Edit Surat Masuk',
                 'description' => 'Mengubah data Surat Masuk',
-                'url' => route('dokumen.store'),
-                'method' => 'POST',
+                'url' => route('surat.update', $letter->id),
+                'method' => 'PATCH',
                 'type' => 'in',
             ],
             'type_letters' => TypeLetter::all(),
         ]);
     }
 
-    public function letterOutEdit(Document $id)
+    public function letterOutEdit(Document $letter)
     {
         return inertia('Surat/Form', [
-            'posts' => new Document(),
+            'letter' => LetterResource::make($letter),
             'page_settings' => [
-                'title' => 'Tambah Surat Keluar',
-                'description' => 'Menambahkan Surat Keluar',
-                'url' => route('dokumen.store'),
-                'method' => 'POST',
+                'title' => 'Edit Surat Keluar',
+                'description' => 'Mengubah Surat Keluar',
+                'url' => route('surat.update', $letter->id),
+                'method' => 'PATCH',
                 'type' => 'out',
             ],
             'type_letters' => TypeLetter::all(),
@@ -103,9 +106,24 @@ class LetterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(LetterRequest $request)
     {
-        //
+
+        $request->user()->documents()->create(
+            [
+                'type_letter_id' => $request->type_letter_id,
+                'name' => $request->name,
+                'code' => $request->code,
+                'description' => $request->description,
+                'file' => $request->file('file')->store('dokumen', 'public'),
+                'status' => $request->status,
+                'accepted_at' => $request->accepted_at,
+                'is_private' => $request->is_private,
+            ]
+        );
+
+        flashMessage('Success', 'Berhasil menambahkan Dokumen');
+        return redirect()->route('daftar-surat');
     }
 
     /**
@@ -127,9 +145,27 @@ class LetterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Document $letter)
     {
-        //
+        if ($request->file('file') && Storage::disk('public')->exists($letter->file)) {
+            Storage::disk('public')->delete($letter->file);
+        }
+
+        $letter->update(
+            [
+                'type_letter_id' => $request->type_letter_id,
+                'name' => $request->name,
+                'code' => $request->code,
+                'description' => $request->description,
+                'file' => $request->file('file') ? $request->file('file')->store('dokumen', 'public') : $letter->file,
+                'status' => $request->status,
+                'accepted_at' => $request->accepted_at,
+                'is_private' => $request->is_private,
+            ]
+        );
+
+        flashMessage('Success', 'Berhasil mengubah Dokumen');
+        return redirect()->route('daftar-surat');
     }
 
     /**

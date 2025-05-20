@@ -9,8 +9,9 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { FileInput, FileOutput, LoaderCircle, Lock } from 'lucide-react';
+import { File, FileInput, FileOutput, LoaderCircle, Lock, X } from 'lucide-react';
 import { useState } from 'react';
+import { LetterParams } from './Type';
 
 type PageSettings = {
     title: string;
@@ -22,7 +23,7 @@ type PageSettings = {
 
 type TypeLetter = { id: number; name: string; is_private: boolean };
 
-const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; type_letters: TypeLetter[] }) => {
+const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSettings; type_letters: TypeLetter[]; letter?: LetterParams }) => {
     const { errors } = usePage().props;
 
     const [processing, setProcessing] = useState(false);
@@ -39,13 +40,13 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
     ];
 
     const { setData, data, reset } = useForm({
-        type_letter_id: '',
-        name: '',
-        code: '',
-        description: '',
-        file: null,
-        is_private: false,
-        accepted_at: '',
+        type_letter_id: letter?.type_letter_id || '',
+        name: letter?.name || '',
+        code: letter?.code || '',
+        description: letter?.description || '',
+        file: letter?.file || null,
+        is_private: letter?.is_private || false,
+        accepted_at: letter?.accepted_at || '',
         status: page_settings.type == 'in' ? 'masuk' : 'keluar',
     });
 
@@ -72,6 +73,9 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
             setData('file', file);
         }
     };
+
+    console.log(data.file);
+    const [isFile, setIsFile] = useState<boolean>(letter?.file ? true : false);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Form Surat" />
@@ -119,6 +123,7 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
                                             type="text"
                                             className="w-full"
                                             placeholder="Masukan nama surat ..."
+                                            value={data.name}
                                             onChange={(e) => setData('name', e.target.value)}
                                         />
                                         <InputError className="mt-2" message={errors.name} />
@@ -130,6 +135,7 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
                                             type="text"
                                             className="w-full"
                                             placeholder="No. Surat"
+                                            value={data.code}
                                             onChange={(e) => setData('code', e.target.value)}
                                         />
                                         <InputError className="mt-2" message={errors.code} />
@@ -138,19 +144,41 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
                                 <div className="grid w-full grid-cols-5 justify-items-center gap-4">
                                     <div className="col-span-3 w-full">
                                         <Label htmlFor="description">File</Label>
-                                        <Input
-                                            id="description"
-                                            type="file"
-                                            className="w-full"
-                                            placeholder="No. Surat Otomatis"
-                                            onChange={handleFileChange}
-                                        />
+                                        {isFile ? (
+                                            <div className="max-w-md rounded-lg border p-2 shadow">
+                                                <div className="flex items-center justify-between px-2">
+                                                    <a href={`${data.file}`} target="_blank" className="flex w-full items-center gap-2">
+                                                        <div className="flex items-center space-x-4">
+                                                            <File className="size-5 text-gray-500" />
+                                                            <h3 className="text-md font-semibold">Lihat Surat</h3>
+                                                        </div>
+                                                    </a>
+
+                                                    <X
+                                                        className="size-5 cursor-pointer text-gray-500 transition-all hover:scale-125"
+                                                        onClick={() => setIsFile(false)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <Input
+                                                id="description"
+                                                type="file"
+                                                className="w-full"
+                                                placeholder="No. Surat Otomatis"
+                                                onChange={handleFileChange}
+                                            />
+                                        )}
                                         <InputError className="mt-2" message={errors.file} />
                                     </div>
                                     <div className="col-span-2 w-full">
                                         <Label htmlFor="is_private">Kunci Surat</Label>
                                         <div className="flex items-center gap-2 py-2">
-                                            <Switch id="is_private" onCheckedChange={(e) => setData('is_private', e)} />
+                                            <Switch
+                                                id="is_private"
+                                                onCheckedChange={(e) => setData('is_private', e)}
+                                                defaultChecked={data.is_private === 1 ? true : false}
+                                            />
                                             <Lock className="size-5" />
                                         </div>
                                         <InputError className="mt-2" message={errors.is_private} />
@@ -158,12 +186,13 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
                                 </div>
 
                                 <div className="w-full">
-                                    <Label htmlFor="accepted_at">Tanggal diterima</Label>
+                                    <Label htmlFor="accepted_at">Tanggal {page_settings.type == 'in' ? 'Diterima' : 'Dikeluarkan'}</Label>
                                     <Input
                                         id="accepted_at"
                                         type="date"
                                         className="w-full"
                                         placeholder="Tanggal diterima"
+                                        value={data.accepted_at}
                                         onChange={(e) => setData('accepted_at', e.target.value)}
                                     />
                                     <InputError className="mt-2" message={errors.accepted_at} />
@@ -174,6 +203,7 @@ const Form = ({ page_settings, type_letters }: { page_settings: PageSettings; ty
                                         id="description"
                                         className="w-full"
                                         placeholder="Masukan deskripsi surat ..."
+                                        value={data.description}
                                         onChange={(e) => setData('description', e.target.value)}
                                     />
                                     <InputError className="mt-2" message={errors.description} />

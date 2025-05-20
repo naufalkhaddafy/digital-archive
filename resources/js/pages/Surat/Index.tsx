@@ -173,7 +173,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                         ))
                     ) : (
                         <div className="p-5 font-bold text-gray-500">
-                            <p>..... Jenis Surat Tidak Ditemukan .....</p>
+                            <p>Jenis Surat Tidak Ditemukan</p>
                         </div>
                     )}
                 </div>

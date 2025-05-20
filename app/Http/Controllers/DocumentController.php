@@ -79,8 +79,9 @@ class DocumentController extends Controller
         if (!empty($document->file) && Storage::disk('public')->exists($document->file)) {
             Storage::disk('public')->delete($document->file);
         }
-        
+
         $document->delete();
+
         flashMessage('Success', 'Berhasil menghapus Dokumen');
         return redirect()->route('daftar-surat');
     }

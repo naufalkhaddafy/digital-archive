@@ -20,8 +20,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('jenis-surat', TypeLetterController::class)->except(['show', 'edit', 'create']);
         Route::get('/tambah-surat-masuk', [LetterController::class, 'letterIn'])->name('tambah.surat.masuk');
         Route::get('/tambah-surat-keluar', [LetterController::class, 'letterOut'])->name('tambah.surat.keluar');
-        Route::get('/{id}/edit-surat-masuk', [LetterController::class, 'letterInEdit'])->name('tambah.surat.masuk');
-        Route::get('/edit-surat-keluar', [LetterController::class, 'letterOutEdit'])->name('tambah.surat.keluar');
+        Route::get('/{letter}/edit-surat-masuk', [LetterController::class, 'letterInEdit'])->name('edit.surat.masuk');
+        Route::get('/{letter}/edit-surat-keluar', [LetterController::class, 'letterOutEdit'])->name('edit.surat.keluar');
+        Route::post('/store', [LetterController::class, 'store'])->name('surat.store');
+        Route::patch('/{letter}/update', [LetterController::class, 'update'])->name('surat.update');
     });
 
     Route::resource('/dokumen', DocumentController::class)->except(['show', 'edit', 'create'])->parameters([

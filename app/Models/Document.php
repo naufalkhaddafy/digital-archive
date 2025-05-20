@@ -13,6 +13,7 @@ class Document extends Model
 
     protected $casts = [
         'status' => LetterStatus::class,
+        'accepted_at' => 'datetime',
     ];
 
     public function typeLetter()

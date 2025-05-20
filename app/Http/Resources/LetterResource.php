@@ -2,13 +2,11 @@
 
 namespace App\Http\Resources;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-
-class LettersResource extends JsonResource
+class LetterResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,7 +24,7 @@ class LettersResource extends JsonResource
             'description' => $this->description,
             'type_letter_name' => $this->typeLetter->name,
             'type_letter_id' => $this->typeLetter->id,
-            'accepted_at' => $this->accepted_at->format('d-m-Y'),
+            'accepted_at' => $this->accepted_at->format('Y-m-d'),
             'is_private' => $this->is_private,
             'url' => $this->status->value == 'masuk' ? route('edit.surat.masuk', $this->id) : route('edit.surat.keluar', $this->id),
         ];

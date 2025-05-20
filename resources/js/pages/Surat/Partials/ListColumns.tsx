@@ -10,6 +10,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { Link } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye, FileInput, FileOutput, Lock, MoreHorizontal } from 'lucide-react';
 import { LetterParams } from '../Type';
@@ -33,6 +34,20 @@ export const columns: ColumnDef<LetterParams>[] = [
         enableSorting: false,
         enableHiding: false,
     },
+    // {
+    //     accessorKey: 'accepted_at',
+    //     header: ({ column }) => {
+    //         return (
+    //             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+    //                 Tangtga
+    //                 <ArrowUpDown />
+    //             </Button>
+    //         );
+    //     },
+    //     cell: ({ row }) => {
+    //         return <div>{row.getValue('accepted_at')}</div>;
+    //     },
+    // },
     {
         accessorKey: 'code',
         header: ({ column }) => {
@@ -45,6 +60,7 @@ export const columns: ColumnDef<LetterParams>[] = [
         },
         cell: ({ row }) => <div className="px-2">{row.getValue('code')}</div>,
     },
+
     {
         accessorKey: 'name',
         header: ({ column }) => {
@@ -69,6 +85,7 @@ export const columns: ColumnDef<LetterParams>[] = [
         },
         cell: ({ row }) => <div className="px-2">{row.getValue('type_letter_name')}</div>,
     },
+
     {
         accessorKey: 'status',
         header: 'Status Surat',
@@ -125,8 +142,10 @@ export const columns: ColumnDef<LetterParams>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Lihat Detail</DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        {/* <DropdownMenuItem>Lihat Detail</DropdownMenuItem> */}
+                        <DropdownMenuItem asChild>
+                            <Link href={letter.url}>Edit</Link>
+                        </DropdownMenuItem>
                         <DropdownMenuItem asChild>
                             <ModalDeleteLetter letter={letter} />
                         </DropdownMenuItem>
