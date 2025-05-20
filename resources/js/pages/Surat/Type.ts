@@ -17,4 +17,5 @@ export type TypeLetterParams = {
     name: string;
     is_private: boolean;
     documents_count: number;
+    slug: string;
 };

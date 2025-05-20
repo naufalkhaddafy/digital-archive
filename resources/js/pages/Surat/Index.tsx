@@ -70,7 +70,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 // ];
 
 const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; letters: LetterParams[] }) => {
-
     const getQueryParam = (key: string) => {
         const params = new URLSearchParams(window.location.search);
         return params.get(key);
@@ -177,17 +176,19 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                         </div>
                     ) : typeLetters.length > 0 ? (
                         typeLetters.map((s, index) => (
-                            <div className="w-full cursor-pointer rounded-lg border bg-gray-100/50 p-4 shadow-md" key={index}>
-                                <div className="flex items-center gap-3 border-gray-300 py-2 dark:border-gray-700">
-                                    <div className="flex items-center gap-3">
-                                        <FolderClosed className="size-12 text-gray-500" />
-                                        <div>
-                                            <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
-                                            <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
+                            <Link href={`/surat/${s.slug}`} key={index}>
+                                <div className="w-full cursor-pointer rounded-lg border bg-gray-100/50 p-4 shadow-md">
+                                    <div className="flex items-center gap-3 border-gray-300 py-2 dark:border-gray-700">
+                                        <div className="flex items-center gap-3">
+                                            <FolderClosed className="size-12 text-gray-500" />
+                                            <div>
+                                                <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
+                                                <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     ) : (
                         <div className="p-5 font-bold text-gray-500">

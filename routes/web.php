@@ -23,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{letter}/edit-surat-keluar', [LetterController::class, 'letterOutEdit'])->name('edit.surat.keluar');
         Route::post('/store', [LetterController::class, 'store'])->name('surat.store');
         Route::patch('/{letter}/update', [LetterController::class, 'update'])->name('surat.update');
+        Route::get('/{type:slug}', [LetterController::class, 'show'])->name('surat.show');
     });
 
     Route::resource('/dokumen', DocumentController::class)->except(['show', 'edit', 'create'])->parameters([

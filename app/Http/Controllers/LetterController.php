@@ -129,9 +129,12 @@ class LetterController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(TypeLetter $type)
     {
-        //
+        return inertia('Surat/Detail', [
+            'letters' => LettersResource::collection($type->documents),
+            'typeLetter' => TypeLetterResource::make($type),
+        ]);
     }
 
     /**
