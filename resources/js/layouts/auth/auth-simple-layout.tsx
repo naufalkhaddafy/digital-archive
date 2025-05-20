@@ -14,15 +14,19 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
                         <Link href={''} className="flex flex-col items-center gap-2 font-medium">
-                            <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
+                            <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
                                 {/* <AppLogoIcon className="size-9 fill-current text-[var(--foreground)] dark:text-white" /> */}
+                                <img
+                                    src="/assets/sipagen-icon.png"
+                                    alt="logo"
+                                    className="size-15 fill-current text-[var(--foreground)] dark:text-white"
+                                />
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>
 
                         <div className="space-y-2 text-center">
-                            <h1 className="text-2xl font-bold tracking-widest">{title}</h1>
-                            <p className="text-md font-light">Kelurahan Gending</p>
+                            <h1 className="text-xl font-bold">{title}</h1>
                             <p className="text-muted-foreground text-center text-sm">{description}</p>
                         </div>
                     </div>

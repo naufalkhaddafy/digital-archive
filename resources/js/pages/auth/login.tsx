@@ -35,7 +35,7 @@ export default function Login({ status }: LoginProps) {
     };
 
     return (
-        <AuthLayout title="Sistem Digital Arsip" description="Masukkan email dan kata sandi Anda di bawah ini untuk masuk">
+        <AuthLayout title="Sistem Informasi Pengarsipan Gending" description="Masukkan email dan kata sandi untuk masuk">
             <Head title="Log in" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
