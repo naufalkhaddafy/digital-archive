@@ -11,9 +11,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { FileInput, FileOutput, FolderClosed, Plus, Search } from 'lucide-react';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { columns } from './Partials/ListColumns';
 import { LetterParams, TypeLetterParams } from './Type';
 
@@ -70,20 +70,37 @@ const breadcrumbs: BreadcrumbItem[] = [
 // ];
 
 const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; letters: LetterParams[] }) => {
-    const { data, setData, errors, get, patch, processing, reset } = useForm({
-        keyword: '',
+
+    const getQueryParam = (key: string) => {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(key);
+    };
+
+    const [filter, setFilter] = useState({
+        keyword: getQueryParam('keyword') || '',
     });
+    const [processing, setProcessing] = useState(false);
+    const search = async (type: string, data: string | string[]) => {
+        setFilter((prev) => {
+            const updatedFilter = { ...prev, [type]: data };
+            const dataReady = Object.fromEntries(
+                Object.entries({
+                    keyword: updatedFilter.keyword || null,
+                }).filter(([, v]) => Boolean(v)),
+            );
 
-    useEffect(() => {
-        const debounce = setTimeout(() => {
-            get('/surat/daftar-surat', {
-                preserveState: true,
-                replace: true,
-            });
-        }, 500);
+            setTimeout(() => {
+                router.get('/surat/daftar-surat', dataReady, {
+                    preserveState: true,
+                    preserveScroll: true,
+                    onStart: () => setProcessing(true),
+                    onFinish: () => setProcessing(false),
+                });
+            }, 500);
 
-        return () => clearTimeout(debounce);
-    }, [data.keyword]);
+            return updatedFilter;
+        });
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -96,7 +113,8 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                         <input
                             type="text"
                             placeholder="Cari folder jenis surat atau surat..."
-                            onChange={(e) => setData('keyword', e.target.value)}
+                            onChange={(e) => search('keyword', e.target.value)}
+                            value={filter.keyword}
                             className="w-full rounded-lg border bg-white px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:text-gray-400"
                         />
                         <Search className="absolute top-1/2 right-3 size-4 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
