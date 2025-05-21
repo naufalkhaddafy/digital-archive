@@ -12,6 +12,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        retensiSchedule();
         return inertia('dashboard', [
             'letterIn' => count(Document::query()->whereNotNull('type_letter_id')->where('status', 'masuk')->get()),
             'letterOut' => count(Document::query()->whereNotNull('type_letter_id')->where('status', 'keluar')->get()),

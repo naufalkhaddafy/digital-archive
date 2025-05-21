@@ -21,7 +21,7 @@ class LetterController extends Controller
      */
     public function index(Request $request)
     {
-
+        retensiSchedule();
         $filters = $request->only(['keyword']);
 
         $typeLetters = TypeLetter::query()->with('documents')->when($filters['keyword'] ?? null, fn($q) => $q->whereAny(['name', 'is_private', 'slug', 'created_at', 'updated_at'], 'like', '%' . $filters['keyword'] . '%'))->get();

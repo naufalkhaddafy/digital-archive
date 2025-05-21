@@ -34,8 +34,8 @@ const fileMenu: NavItem[] = [
         icon: FolderCog,
     },
     {
-        title: 'Setting',
-        href: '/dokumen',
+        title: 'Setting Retensi',
+        href: '/dokumen/settings',
         icon: FolderClock,
     },
 ];

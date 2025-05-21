@@ -20,8 +20,8 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
+        retensiSchedule();
         $filters = $request->only(['keyword']);
-
         $letters = Document::query()->with('typeLetter')->whereNull('type_letter_id')->when($filters['keyword'] ?? null, function ($q) use ($filters) {
             $keyword = $filters['keyword'];
             $q->whereAny(['name', 'code', 'status'], 'like', "%{$keyword}%")

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\LetterController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TypeLetterController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/dokumen', DocumentController::class)->except(['show'])->parameters([
         'dokumen' => 'document'
     ]);
+    Route::get('/dokumen/settings', [SettingController::class, 'index'])->name('dokumen.settings.index');
+    Route::patch('/dokumen/retensi/update', [SettingController::class, 'update'])->name('dokumen.settings.update');
 });
 
 require __DIR__ . '/settings.php';

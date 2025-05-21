@@ -20,13 +20,13 @@ class TypeLetterSeeder extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'Surat Kuasa',
-                'is_private' => true,
+                'name' => 'Surat Kewarisan',
+                'is_private' => false,
             ],
             [
                 'user_id' => 1,
-                'name' => 'Surat Kewarisan',
-                'is_private' => false,
+                'name' => 'Surat Kuasa',
+                'is_private' => true,
             ],
             [
                 'user_id' => 1,
