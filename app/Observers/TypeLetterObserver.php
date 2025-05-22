@@ -10,4 +10,8 @@ class TypeLetterObserver
     {
         $type->slug = str()->slug($type->name);
     }
+    public function updat(TypeLetter $type): void
+    {
+        $type->slug = str()->slug($type->name);
+    }
 }
