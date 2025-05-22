@@ -14,13 +14,28 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
                         <Link href={''} className="flex flex-col items-center gap-2 font-medium">
-                            <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
-                                {/* <AppLogoIcon className="size-9 fill-current text-[var(--foreground)] dark:text-white" /> */}
-                                <img
-                                    src="/assets/sipagen-icon.png"
-                                    alt="logo"
-                                    className="size-15 fill-current text-[var(--foreground)] dark:text-white"
-                                />
+                            <div className="flex items-center">
+                                <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
+                                    <img
+                                        src="/assets/icon-gresik.png"
+                                        alt="logo"
+                                        className="size-15 fill-current text-[var(--foreground)] dark:text-white"
+                                    />
+                                </div>
+                                <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
+                                    <img
+                                        src="/assets/sipagen-icon.png"
+                                        alt="logo"
+                                        className="size-15 fill-current text-[var(--foreground)] dark:text-white"
+                                    />
+                                </div>
+                                <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
+                                    <img
+                                        src="/assets/icon-unesa.png"
+                                        alt="logo"
+                                        className="size-15 fill-current text-[var(--foreground)] dark:text-white"
+                                    />
+                                </div>
                             </div>
                             <span className="sr-only">{title}</span>
                         </Link>
