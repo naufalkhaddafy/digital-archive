@@ -39,13 +39,12 @@ const Index = ({ type, retensi }: { type: TypeLetterParams[]; retensi: any }) =>
         patch(route('dokumen.settings.update'));
     };
 
-    console.log(data);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Kelola Arsip Dokumen" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title="Dokumen Setting" description="halaman untuk setting manajeman data dokumen" />
-                <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
+                <div className="rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
                     <form onSubmit={handleSubmit}>
                         <div className="flex items-center gap-3 border-b pb-2">
                             <Settings className="size-6" />

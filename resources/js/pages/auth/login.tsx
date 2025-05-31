@@ -41,7 +41,9 @@ export default function Login({ status }: LoginProps) {
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="email" className="text-white">
+                            Email
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -56,9 +58,11 @@ export default function Login({ status }: LoginProps) {
                         <InputError message={errors.email} />
                     </div>
 
-                    <div className="grid gap-2">
+                    <div className="grid gap-2 text-white">
                         <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-white">
+                                Password
+                            </Label>
                         </div>
                         <Input
                             id="password"
@@ -84,7 +88,12 @@ export default function Login({ status }: LoginProps) {
                         <Label htmlFor="remember">Remember me</Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
+                    <Button
+                        type="submit"
+                        className="text-primary mt-4 w-full bg-white hover:border hover:border-white hover:text-white"
+                        tabIndex={4}
+                        disabled={processing}
+                    >
                         {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Log in
                     </Button>

@@ -106,7 +106,6 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
             <Head title="Kelola Surat" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title="Kelola Surat" description="Kelola surat" />
-
                 <div className="flex items-center gap-2">
                     <div className="relative max-w-md flex-1">
                         <input
@@ -114,7 +113,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                             placeholder="Cari folder jenis surat atau surat..."
                             onChange={(e) => search('keyword', e.target.value)}
                             value={filter.keyword}
-                            className="w-full rounded-lg border bg-white px-4 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:text-gray-400"
+                            className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:text-gray-400"
                         />
                         <Search className="absolute top-1/2 right-3 size-4 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
                     </div>
@@ -182,7 +181,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                                         <div className="flex items-center gap-3">
                                             <FolderClosed className="size-12 text-gray-500" />
                                             <div>
-                                                <div className="text-md py-1 font-semibold text-blue-400">{s.name}</div>
+                                                <div className="text-md py-1 font-semibold text-gray-200">{s.name}</div>
                                                 <div className="text-sm text-gray-700 dark:text-gray-400">{s.documents_count} Surat</div>
                                             </div>
                                         </div>
@@ -197,7 +196,7 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                     )}
                 </div>
                 <h3 className="p-3 font-bold">Surat terbaru</h3>
-                <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
+                <div className="rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
                     <DataTable columns={columns} data={letters} />
                 </div>
             </div>

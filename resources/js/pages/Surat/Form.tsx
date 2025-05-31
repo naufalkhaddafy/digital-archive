@@ -76,14 +76,13 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
 
     const [isFile, setIsFile] = useState<boolean>(letter?.file ? true : false);
 
-    console.log(letter);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Form Surat" />
             <div className="rounded-xl px-4 py-6">
                 <Heading title={`${page_settings.title}`} description={page_settings.description} />
                 <div className="max-w-4xl">
-                    <div className="w-full rounded-xl border p-4 shadow xl:col-span-4">
+                    <div className="w-full rounded-xl border bg-gray-100/50 p-4 shadow xl:col-span-4">
                         <div className="flex items-center justify-between border-gray-200 p-2 py-4">
                             <div className="flex items-center space-x-2">
                                 {page_settings.type == 'in' ? (

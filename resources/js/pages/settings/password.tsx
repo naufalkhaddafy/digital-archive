@@ -53,7 +53,7 @@ export default function Password() {
             <Head title="Profile settings" />
 
             <SettingsLayout>
-                <div className="space-y-6">
+                <div className="space-y-6 rounded-2xl bg-gray-100/50 p-5">
                     <HeadingSmall
                         title="Ubah kata sandi"
                         description="Pastikan akun Anda menggunakan kata sandi yang panjang dan acak untuk tetap aman"

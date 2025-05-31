@@ -45,7 +45,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             <Head title="Profile settings" />
 
             <SettingsLayout>
-                <div className="space-y-6">
+                <div className="space-y-6 rounded-2xl bg-gray-100/50 p-5">
                     <HeadingSmall title="Informasi Profil" description="Perbarui nama dan alamat email Anda" />
 
                     <form onSubmit={submit} className="space-y-6">

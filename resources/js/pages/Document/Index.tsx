@@ -70,7 +70,7 @@ const Index = ({ letters }: { letters: LetterParams[] }) => {
                     </Button>
                 </div>
 
-                <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
+                <div className="rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
                     <DataTable columns={columns} data={letters} />
                 </div>
             </div>

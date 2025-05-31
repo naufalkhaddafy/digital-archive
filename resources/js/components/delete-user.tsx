@@ -31,14 +31,12 @@ export default function DeleteUser() {
     };
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 rounded-2xl bg-gray-100/50 p-5">
             <HeadingSmall title="Hapus akun" description="Hapus akun Anda dan semua sumber dayanya" />
             <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-4 dark:border-red-200/10 dark:bg-red-700/10">
                 <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
                     <p className="font-medium">Peringatan</p>
-                    <p className="text-sm">
-                        Mohon berhati-hati, ini tidak dapat dibatalkan.
-                    </p>
+                    <p className="text-sm">Mohon berhati-hati, ini tidak dapat dibatalkan.</p>
                 </div>
 
                 <Dialog>

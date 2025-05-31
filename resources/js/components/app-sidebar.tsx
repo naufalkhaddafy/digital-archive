@@ -48,25 +48,12 @@ const userMenu: NavItem[] = [
     },
 ];
 
-// const footerNavItems: NavItem[] = [
-//     {
-//         title: 'Repository',
-//         href: 'https://github.com/laravel/react-starter-kit',
-//         icon: Folder,
-//     },
-//     {
-//         title: 'Documentation',
-//         href: 'https://laravel.com/docs/starter-kits#react',
-//         icon: BookOpen,
-//     },
-// ];
-
 export function AppSidebar() {
     const { auth } = usePage().props;
     return (
-        <Sidebar collapsible="icon" variant="inset">
-            <SidebarHeader>
-                <SidebarMenu>
+        <Sidebar collapsible="icon" variant="inset" className="bg-[#8b2727]">
+            <SidebarHeader className="bg-[#8b2727]">
+                <SidebarMenu className="bg-[#8b2727]">
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
                             <Link href="/dashboard" prefetch>
@@ -77,14 +64,14 @@ export function AppSidebar() {
                 </SidebarMenu>
             </SidebarHeader>
 
-            <SidebarContent>
+            <SidebarContent className="bg-[#8b2727]">
                 <NavMain items={mainNavItems} title="Platform" />
                 <NavMain items={suratMenu} title="Kelola Surat" />
                 <NavMain items={fileMenu} title="File Manager" />
                 {auth.role === 'admin' && <NavMain items={userMenu} title="Manajemen User" />}
             </SidebarContent>
 
-            <SidebarFooter>
+            <SidebarFooter className="bg-[#8b2727]">
                 {/* <NavFooter items={footerNavItems} className="mt-auto" /> */}
                 <NavUser />
             </SidebarFooter>

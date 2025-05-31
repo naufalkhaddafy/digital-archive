@@ -25,7 +25,7 @@ const Detail = ({ letters, typeLetter }: { letters: LetterParams[]; typeLetter: 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <Heading title={`Daftar ${typeLetter.name}`} description="Detail Jenis Surat" />
                 <div className="flex max-w-sm gap-5">
-                    <div className="w-full rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
+                    <div className="w-full rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
                         <div className="flex items-center gap-2 py-2">
                             <div className="flex items-center gap-5">
                                 <FileStack className="size-7 text-green-400" />
@@ -38,7 +38,7 @@ const Detail = ({ letters, typeLetter }: { letters: LetterParams[]; typeLetter: 
                     </div>
                 </div>
 
-                <div className="rounded-lg border bg-white p-4 shadow-sm dark:bg-gray-800">
+                <div className="rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
                     <DataTable columns={columns} data={letters} />
                 </div>
             </div>
