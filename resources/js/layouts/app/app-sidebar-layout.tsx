@@ -12,6 +12,9 @@ export default function AppSidebarLayout({ children, breadcrumbs = [] }: PropsWi
             <AppContent variant="sidebar">
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
                 {children}
+                <div className="px-2 py-4 text-center text-[0.65rem] font-semibold lg:text-base">
+                    © 2025 Program Studi D4 Administrasi Negara, All Rights Reserved
+                </div>
             </AppContent>
         </AppShell>
     );

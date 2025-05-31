@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 
 export default function AuthSimpleLayout({ children, title, description }: PropsWithChildren<AuthLayoutProps>) {
     return (
-        <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+        <div className="bg-background relative flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
             <div className="w-full max-w-sm">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col items-center gap-4">
@@ -47,6 +47,9 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                     </div>
                     {children}
                 </div>
+            </div>
+            <div className="absolute bottom-0 px-2 py-4 text-center text-[0.65rem] font-semibold lg:text-base">
+                © 2025 Program Studi D4 Administrasi Negara, All Rights Reserved
             </div>
         </div>
     );
