@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import { BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/react';
-import { File, FileInput, FileOutput, LoaderCircle, Lock, X } from 'lucide-react';
+import { File, FileInput, FileOutput, LoaderCircle, Lock, LockIcon, X } from 'lucide-react';
 import { useState } from 'react';
 import { LetterParams } from './Type';
 
@@ -145,7 +145,7 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
                                 <div className="grid w-full grid-cols-5 justify-items-center gap-4">
                                     <div className="col-span-5 w-full">
                                         <Label htmlFor="description">File</Label>
-                                        {isFile ? (
+                                        {isFile && data.is_private == false ? (
                                             <div className="max-w-md rounded-lg border p-2 shadow">
                                                 <div className="flex items-center justify-between px-2">
                                                     <a href={`${data.file}`} target="_blank" className="flex w-full items-center gap-2">
@@ -154,7 +154,34 @@ const Form = ({ page_settings, type_letters, letter }: { page_settings: PageSett
                                                             <h3 className="text-md font-semibold">Lihat Surat</h3>
                                                         </div>
                                                     </a>
-
+                                                    <X
+                                                        className="size-5 cursor-pointer text-gray-500 transition-all hover:scale-125"
+                                                        onClick={() => {
+                                                            setIsFile(false);
+                                                            setData('file', null);
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ) : isFile && auth.role === 'staff' ? (
+                                            <div className="flex items-center gap-5">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="flex items-center space-x-4">
+                                                        <File className="size-5 text-gray-500" />
+                                                        <h3 className="text-md font-semibold">Dokumen Terkunci</h3>
+                                                    </div>
+                                                </div>
+                                                <LockIcon />
+                                            </div>
+                                        ) : isFile && auth.role === 'admin' ? (
+                                            <div className="max-w-md rounded-lg border p-2 shadow">
+                                                <div className="flex items-center justify-between px-2">
+                                                    <a href={`${data.file}`} target="_blank" className="flex w-full items-center gap-2">
+                                                        <div className="flex items-center space-x-4">
+                                                            <File className="size-5 text-gray-500" />
+                                                            <h3 className="text-md font-semibold">Lihat Surat</h3>
+                                                        </div>
+                                                    </a>
                                                     <X
                                                         className="size-5 cursor-pointer text-gray-500 transition-all hover:scale-125"
                                                         onClick={() => {

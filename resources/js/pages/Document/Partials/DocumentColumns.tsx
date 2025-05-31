@@ -13,7 +13,7 @@ import {
 import { LetterParams } from '@/pages/Surat/Type';
 import { Link, usePage } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, Eye, Lock, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, Eye, Lock, LockIcon, MoreHorizontal } from 'lucide-react';
 import { ModalDeleteDocument } from './Modal';
 
 // import { ModalDeleteUser, ModalFormUser } from './ModalUser';
@@ -80,8 +80,8 @@ export const columns: ColumnDef<LetterParams>[] = [
                             Terkunci
                         </span>
                     ) : (
-                        <a onClick={() => openInNewTab(file)} target="_blank" className="flex items-center gap-2">
-                            <Eye className="h-4 w-4 text-blue-500" />
+                        <a onClick={() => openInNewTab(file)} target="_blank" className="flex cursor-pointer items-center gap-2">
+                            {status ? <LockIcon className="h-4 w-4 text-orange-500" /> : <Eye className="h-4 w-4 text-blue-500" />}
                             Lihat
                         </a>
                     )}
