@@ -2,8 +2,8 @@ import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
-import { FileStack, FolderClock, FolderCog, LayoutGrid, Mails } from 'lucide-react';
+import { Link, usePage } from '@inertiajs/react';
+import { FileStack, FolderClock, FolderCog, LayoutGrid, Mails, UserCog } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -40,6 +40,14 @@ const fileMenu: NavItem[] = [
     },
 ];
 
+const userMenu: NavItem[] = [
+    {
+        title: 'User Settings',
+        href: '/pengguna',
+        icon: UserCog,
+    },
+];
+
 // const footerNavItems: NavItem[] = [
 //     {
 //         title: 'Repository',
@@ -54,6 +62,7 @@ const fileMenu: NavItem[] = [
 // ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props;
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -72,6 +81,7 @@ export function AppSidebar() {
                 <NavMain items={mainNavItems} title="Platform" />
                 <NavMain items={suratMenu} title="Kelola Surat" />
                 <NavMain items={fileMenu} title="File Manager" />
+                {auth.role === 'admin' && <NavMain items={userMenu} title="Manajemen User" />}
             </SidebarContent>
 
             <SidebarFooter>

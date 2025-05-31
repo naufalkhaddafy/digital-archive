@@ -5,6 +5,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TypeLetterController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,6 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     ]);
     Route::get('/dokumen/settings', [SettingController::class, 'index'])->name('dokumen.settings.index');
     Route::patch('/dokumen/retensi/update', [SettingController::class, 'update'])->name('dokumen.settings.update');
+
+    Route::resource('pengguna', UserController::class)->except(['show', 'edit', 'create'])->middleware('role:admin');
 });
 
 require __DIR__ . '/settings.php';

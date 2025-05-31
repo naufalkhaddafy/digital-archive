@@ -21,7 +21,7 @@ type PageSettings = {
 };
 
 const Form = ({ page_settings, document }: { page_settings: PageSettings; document?: LetterParams }) => {
-    const { errors } = usePage().props;
+    const { errors, auth } = usePage().props;
 
     const [processing, setProcessing] = useState(false);
 
@@ -113,7 +113,7 @@ const Form = ({ page_settings, document }: { page_settings: PageSettings; docume
                                     </div>
                                 </div>
                                 <div className="grid w-full grid-cols-5 justify-items-center gap-4">
-                                    <div className="col-span-3 w-full">
+                                    <div className="col-span-5 w-full">
                                         <Label htmlFor="description">File</Label>
                                         {isFile ? (
                                             <div className="max-w-md rounded-lg border p-2 shadow">
@@ -145,18 +145,20 @@ const Form = ({ page_settings, document }: { page_settings: PageSettings; docume
                                         )}
                                         <InputError className="mt-2" message={errors.file} />
                                     </div>
-                                    <div className="col-span-2 w-full">
-                                        <Label htmlFor="is_private">Kunci Dokumen</Label>
-                                        <div className="flex items-center gap-2 py-2">
-                                            <Switch
-                                                id="is_private"
-                                                onCheckedChange={(e) => setData('is_private', e)}
-                                                defaultChecked={data.is_private === 1 ? true : false}
-                                            />
-                                            <Lock className="size-5" />
+                                    {auth.role === 'admin' && (
+                                        <div className="col-span-2 w-full">
+                                            <Label htmlFor="is_private">Kunci Dokumen</Label>
+                                            <div className="flex items-center gap-2 py-2">
+                                                <Switch
+                                                    id="is_private"
+                                                    onCheckedChange={(e) => setData('is_private', e)}
+                                                    defaultChecked={data.is_private === 1 ? true : false}
+                                                />
+                                                <Lock className="size-5" />
+                                            </div>
+                                            <InputError className="mt-2" message={errors.is_private} />
                                         </div>
-                                        <InputError className="mt-2" message={errors.is_private} />
-                                    </div>
+                                    )}
                                 </div>
                                 <div className="w-full">
                                     <Label htmlFor="description">Deskripsi (optional)</Label>

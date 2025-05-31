@@ -48,7 +48,7 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                     {children}
                 </div>
             </div>
-            <div className="absolute bottom-0 px-2 py-4 text-center text-[0.65rem] font-semibold lg:text-base">
+            <div className="absolute bottom-0 px-2 py-4 text-center text-[0.65rem] font-semibold lg:text-sm">
                 © 2025 Program Studi D4 Administrasi Negara, All Rights Reserved
             </div>
         </div>

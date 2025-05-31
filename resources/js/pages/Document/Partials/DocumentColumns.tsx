@@ -10,9 +10,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ModalDeleteLetter } from '@/pages/Surat/Partials/Modal';
 import { LetterParams } from '@/pages/Surat/Type';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, Eye, Lock, MoreHorizontal } from 'lucide-react';
 import { ModalDeleteDocument } from './Modal';
@@ -72,9 +71,10 @@ export const columns: ColumnDef<LetterParams>[] = [
                 window.open(url, '_blank', 'noopener,noreferrer');
             };
 
+            const { auth } = usePage().props;
             return (
                 <div>
-                    {status ? (
+                    {status && auth.role !== 'admin' ? (
                         <span className="flex items-center gap-2">
                             <Lock className="h-4 w-4 text-orange-500" />
                             Terkunci
