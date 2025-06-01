@@ -132,26 +132,28 @@ export const columns: ColumnDef<LetterParams>[] = [
         enableHiding: false,
         cell: ({ row }) => {
             const letter = row.original;
-
+            const { auth } = usePage().props;
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <MoreHorizontal />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        {/* <DropdownMenuItem>Lihat Detail</DropdownMenuItem> */}
-                        <DropdownMenuItem asChild>
-                            <Link href={letter.url}>Edit</Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <ModalDeleteLetter letter={letter} />
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                auth.role === 'admin' && (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <MoreHorizontal />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            {/* <DropdownMenuItem>Lihat Detail</DropdownMenuItem> */}
+                            <DropdownMenuItem asChild>
+                                <Link href={letter.url}>Edit</Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <ModalDeleteLetter letter={letter} />
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                )
             );
         },
     },
