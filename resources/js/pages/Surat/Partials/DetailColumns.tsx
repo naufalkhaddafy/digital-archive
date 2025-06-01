@@ -10,9 +10,9 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, Eye, FileInput, FileOutput, Lock, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, Eye, FileInput, FileOutput, Lock, LockOpenIcon, MoreHorizontal } from 'lucide-react';
 import { LetterParams } from '../Type';
 import { ModalDeleteLetter } from './Modal';
 
@@ -108,17 +108,18 @@ export const columns: ColumnDef<LetterParams>[] = [
             const openInNewTab = (url) => {
                 window.open(url, '_blank', 'noopener,noreferrer');
             };
+            const { auth } = usePage().props;
 
             return (
                 <div>
-                    {status ? (
+                    {status && auth.role !== 'admin' ? (
                         <span className="flex items-center gap-2">
                             <Lock className="h-4 w-4 text-orange-500" />
                             Terkunci
                         </span>
                     ) : (
-                        <a onClick={() => openInNewTab(file)} target="_blank" className="flex items-center gap-2">
-                            <Eye className="h-4 w-4 text-blue-500" />
+                        <a onClick={() => openInNewTab(file)} target="_blank" className="flex cursor-pointer items-center gap-2">
+                            {status ? <LockOpenIcon className="h-4 w-4 text-orange-500" /> : <Eye className="h-4 w-4 text-blue-500" />}
                             Lihat
                         </a>
                     )}

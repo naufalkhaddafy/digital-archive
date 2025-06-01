@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->dateTime('accepted_at')->nullable();
             $table->boolean('is_private')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

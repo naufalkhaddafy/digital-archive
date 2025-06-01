@@ -176,9 +176,9 @@ class LetterController extends Controller
      */
     public function destroy(Document $letter)
     {
-        if (!empty($letter->file) && Storage::disk('public')->exists($letter->file)) {
-            Storage::disk('public')->delete($letter->file);
-        }
+        // if (!empty($letter->file) && Storage::disk('public')->exists($letter->file)) {
+        //     Storage::disk('public')->delete($letter->file);
+        // }
 
         $letter->delete();
 

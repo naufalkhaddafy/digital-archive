@@ -23,16 +23,29 @@ function retensiSchedule()
     $letterRemove = Document::query()->whereIn('type_letter_id', $jsonInterger)->where('accepted_at', '<', Carbon::now()->subYears($json['time']))->get();
     $documetRemove = $jsonString ? Document::query()->whereNull('type_letter_id')->where('created_at', '<', Carbon::now()->subYears($json['time']))->get() : [];
     collect($letterRemove)->each(function ($item) {
-        if (!empty($item->file) && Storage::disk('public')->exists($item->file)) {
-            Storage::disk('public')->delete($item->file);
-        }
+        // if (!empty($item->file) && Storage::disk('public')->exists($item->file)) {
+        //     Storage::disk('public')->delete($item->file);
+        // }
         $item->delete();
     });
     collect($documetRemove)->each(function ($item) {
+        // if (!empty($item->file) && Storage::disk('public')->exists($item->file)) {
+        //     Storage::disk('public')->delete($item->file);
+        // }
+        $item->delete();
+    });
+}
+
+function removedPermanent()
+{
+    $document = Document::onlyTrashed()
+        ->where('deleted_at', '<=', now()->subDays(30))
+        ->get();
+
+    collect($document)->each(function ($item) {
         if (!empty($item->file) && Storage::disk('public')->exists($item->file)) {
             Storage::disk('public')->delete($item->file);
         }
-        $item->delete();
+        $item->forceDelete();
     });
-    // return $letterRemove;
 }

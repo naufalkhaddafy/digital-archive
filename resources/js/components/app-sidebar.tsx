@@ -3,7 +3,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { FileStack, FolderClock, FolderCog, LayoutGrid, Mails, UserCog } from 'lucide-react';
+import { FileStack, FolderArchive, FolderClock, FolderCog, LayoutGrid, Mails, UserCog } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -37,6 +37,11 @@ const fileMenu: NavItem[] = [
         title: 'Setting Retensi',
         href: '/dokumen/settings',
         icon: FolderClock,
+    },
+    {
+        title: 'Dokumen Terhapus',
+        href: '/dokumen-terhapus',
+        icon: FolderArchive,
     },
 ];
 

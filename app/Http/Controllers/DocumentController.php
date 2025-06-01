@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use App\Http\Resources\DocumentsResource;
 use App\Http\Resources\LettersResource;
+use App\Http\Resources\RemovedDocumentResource;
 use App\Http\Resources\TypeLetterResource;
 use App\Models\TypeLetter;
 use Illuminate\Http\Request;
@@ -76,9 +77,27 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Document $document)
+    public function removed(Request $request)
     {
-        //
+        removedPermanent();
+        $filters = $request->only(['keyword']);
+        $document = Document::onlyTrashed()->when($filters['keyword'] ?? null, function ($q) use ($filters) {
+            $keyword = $filters['keyword'];
+            $q->whereAny(['name', 'code', 'status'], 'like', "%{$keyword}%");
+        })->latest()->get();
+
+        return inertia('Document/Remove', [
+            'documents' => RemovedDocumentResource::collection($document),
+        ]);
+    }
+
+    public function restore($id)
+    {
+        $document = Document::withTrashed()->find($id);
+        $document->restore();
+
+        flashMessage('Success', 'Berhasil mengembalikan Dokumen');
+        return back();
     }
 
     /**
@@ -129,9 +148,9 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        if (!empty($document->file) && Storage::disk('public')->exists($document->file)) {
-            Storage::disk('public')->delete($document->file);
-        }
+        // if (!empty($document->file) && Storage::disk('public')->exists($document->file)) {
+        //     Storage::disk('public')->delete($document->file);
+        // }
 
         $document->delete();
 

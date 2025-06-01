@@ -5,11 +5,12 @@ namespace App\Models;
 use App\Enums\LetterStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
     /** @use HasFactory<\Database\Factories\DocumentFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $casts = [
         'status' => LetterStatus::class,
