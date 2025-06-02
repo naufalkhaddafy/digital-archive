@@ -17,6 +17,13 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                             <div className="flex items-center">
                                 <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
                                     <img
+                                        src="/assets/icon-unesa.png"
+                                        alt="logo"
+                                        className="size-15 fill-current text-[var(--foreground)] dark:text-white"
+                                    />
+                                </div>
+                                <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
+                                    <img
                                         src="/assets/icon-gresik.png"
                                         alt="logo"
                                         className="size-15 fill-current text-[var(--foreground)] dark:text-white"
@@ -25,13 +32,6 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                                 <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
                                     <img
                                         src="/assets/sipagen-icon.png"
-                                        alt="logo"
-                                        className="size-15 fill-current text-[var(--foreground)] dark:text-white"
-                                    />
-                                </div>
-                                <div className="mb-1 flex h-20 w-20 items-center justify-center rounded-md">
-                                    <img
-                                        src="/assets/icon-unesa.png"
                                         alt="logo"
                                         className="size-15 fill-current text-[var(--foreground)] dark:text-white"
                                     />

@@ -137,12 +137,21 @@ class LetterController extends Controller
         ]);
     }
 
+
+
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function detail(Document $letter)
     {
-        //
+        return Inertia('Surat/Show', [
+            'document' => LetterResource::make($letter),
+            'page_settings' => [
+                'title' => 'Detail Surat',
+                'description' => 'Detail Surat Arsip',
+            ],
+            'type_letters' => TypeLetter::all(),
+        ]);
     }
 
     /**

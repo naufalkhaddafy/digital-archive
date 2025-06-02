@@ -28,10 +28,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/{letter}/update', [LetterController::class, 'update'])->name('surat.update');
         Route::get('/{type:slug}', [LetterController::class, 'show'])->name('surat.show');
         Route::delete('/{letter}/destroy', [LetterController::class, 'destroy'])->name('surat.destroy');
+        Route::get('/{letter}/detail', [LetterController::class, 'detail'])->name('surat.detail');
     });
 
 
-    Route::resource('/dokumen', DocumentController::class)->except(['show'])->parameters([
+    Route::resource('/dokumen', DocumentController::class)->parameters([
         'dokumen' => 'document'
     ]);
 

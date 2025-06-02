@@ -74,6 +74,17 @@ class DocumentController extends Controller
         return redirect()->route('dokumen.index');
     }
 
+    public function show(Document $document)
+    {
+        return Inertia('Document/Detail', [
+            'document' => DocumentsResource::make($document),
+            'page_settings' => [
+                'title' => 'Detail Dokumen',
+                'description' => 'Detail Dokumen Arsip',
+            ],
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */

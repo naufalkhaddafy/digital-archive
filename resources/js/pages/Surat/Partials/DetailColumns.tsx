@@ -134,26 +134,30 @@ export const columns: ColumnDef<LetterParams>[] = [
             const letter = row.original;
             const { auth } = usePage().props;
             return (
-                auth.role === 'admin' && (
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                <MoreHorizontal />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            {/* <DropdownMenuItem>Lihat Detail</DropdownMenuItem> */}
-                            <DropdownMenuItem asChild>
-                                <Link href={letter.url}>Edit</Link>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
-                                <ModalDeleteLetter letter={letter} />
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                )
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            <MoreHorizontal />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem asChild>
+                            <Link href={`/surat/${letter.id}/detail`}>Lihat Detail</Link>
+                        </DropdownMenuItem>
+                        {auth.role === 'admin' && (
+                            <>
+                                <DropdownMenuItem asChild>
+                                    <Link href={letter.url}>Edit</Link>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <ModalDeleteLetter letter={letter} />
+                                </DropdownMenuItem>
+                            </>
+                        )}
+                    </DropdownMenuContent>
+                </DropdownMenu>
             );
         },
     },

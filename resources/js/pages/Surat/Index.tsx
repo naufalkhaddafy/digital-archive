@@ -118,42 +118,41 @@ const Index = ({ typeLetters, letters }: { typeLetters: TypeLetterParams[]; lett
                         />
                         <Search className="absolute top-1/2 right-3 size-4 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
                     </div>
-                    {auth.role === 'admin' && (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button variant="outline" className="flex-0 cursor-pointer bg-green-700 text-white">
-                                    <Plus className="size-5" />
-                                    <span className="sr-only">Tambah Surat</span>
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="w-60" side="bottom" align="start">
-                                <DropdownMenuLabel>
-                                    <p className="text-sm font-semibold text-gray-900">Action</p>
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>
-                                    <Link href="/surat/tambah-surat-keluar">
-                                        <div className="flex items-center text-xs">
-                                            <FileOutput className="size-5 text-red-500" />
-                                            <span className="w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                Tambah Surat Keluar
-                                            </span>
-                                        </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <Link href="/surat/tambah-surat-masuk">
-                                        <div className="flex items-center text-sm">
-                                            <FileInput className="size-5 text-green-500" />
-                                            <p className="block w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                                Tambah Surat Masuk
-                                            </p>
-                                        </div>
-                                    </Link>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    )}
+
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="flex-0 cursor-pointer bg-green-700 text-white">
+                                <Plus className="size-5" />
+                                <span className="sr-only">Tambah Surat</span>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-60" side="bottom" align="start">
+                            <DropdownMenuLabel>
+                                <p className="text-sm font-semibold text-gray-900">Action</p>
+                            </DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Link href="/surat/tambah-surat-keluar">
+                                    <div className="flex items-center text-xs">
+                                        <FileOutput className="size-5 text-red-500" />
+                                        <span className="w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Tambah Surat Keluar
+                                        </span>
+                                    </div>
+                                </Link>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link href="/surat/tambah-surat-masuk">
+                                    <div className="flex items-center text-sm">
+                                        <FileInput className="size-5 text-green-500" />
+                                        <p className="block w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Tambah Surat Masuk
+                                        </p>
+                                    </div>
+                                </Link>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
                 <h3 className="p-3 font-bold">Jenis Surat</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">

@@ -62,14 +62,12 @@ const Index = ({ letters }: { letters: LetterParams[] }) => {
                         />
                         <Search className="absolute top-1/2 right-3 size-4 -translate-y-1/2 text-gray-500 dark:text-gray-400" />
                     </div>
-                    {auth.role === 'admin' && (
-                        <Button variant="outline" className="flex-0 cursor-pointer bg-green-700 text-white" asChild>
-                            <Link href="dokumen/create">
-                                <Plus className="size-5" />
-                                <span className="sr-only">Tambah Dokumen</span>
-                            </Link>
-                        </Button>
-                    )}
+                    <Button variant="outline" className="flex-0 cursor-pointer bg-green-700 text-white" asChild>
+                        <Link href="dokumen/create">
+                            <Plus className="size-5" />
+                            <span className="sr-only">Tambah Dokumen</span>
+                        </Link>
+                    </Button>
                 </div>
 
                 <div className="rounded-lg border bg-gray-100/50 p-4 shadow-sm dark:bg-gray-800">
