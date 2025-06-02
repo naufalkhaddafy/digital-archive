@@ -31,18 +31,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/{letter}/detail', [LetterController::class, 'detail'])->name('surat.detail');
     });
 
-
+    Route::get('/dokumen/settings', [SettingController::class, 'index'])->name('dokumen.settings.index');
     Route::resource('/dokumen', DocumentController::class)->parameters([
         'dokumen' => 'document'
     ]);
-
     Route::get('/dokumen-terhapus', [DocumentController::class, 'removed'])->name('dokumen.remove');
-
     Route::patch('/dokumen-terhapus/{id}/restore', [DocumentController::class, 'restore'])->name('dokumen.restore');
-
-    Route::get('/dokumen/settings', [SettingController::class, 'index'])->name('dokumen.settings.index');
     Route::patch('/dokumen/retensi/update', [SettingController::class, 'update'])->name('dokumen.settings.update');
-
     Route::resource('pengguna', UserController::class)->except(['show', 'edit', 'create'])->middleware('role:admin');
 });
 
